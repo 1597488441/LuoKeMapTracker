@@ -248,13 +248,15 @@ class MapMatcher {
     }
 
     fun release() {
-        cleanup(fullMapGray ?: Mat(), fullMapDescriptors ?: Mat(), fullMapKeypoints ?: Mat())
+        fullMapGray?.release()
+        fullMapDescriptors?.release()
+        fullMapKeypoints?.release()
         fullMapGray = null
         fullMapDescriptors = null
         fullMapKeypoints = null
-        orb?.clear()
+        try { orb?.clear() } catch (_: Exception) {}
         orb = null
-        matcher?.clear()
+        try { matcher?.clear() } catch (_: Exception) {}
         matcher = null
         lastResult = null
     }
